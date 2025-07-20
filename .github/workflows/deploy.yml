@@ -1,0 +1,48 @@
+name: Deploy Website
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Replace form endpoint with secret
+        run: |
+          # Show what we're looking for
+          echo "Looking for placeholder in index.html:"
+          grep -n "FORM_ENDPOINT_PLACEHOLDER" index.html || echo "Placeholder not found!"
+          
+          # Check if secret is available (first few characters only for security)
+          echo "Secret status: ${FORM_ENDPOINT:+Secret is set}${FORM_ENDPOINT:-Secret is NOT set}"
+          if [ -n "$FORM_ENDPOINT" ]; then
+            echo "Secret starts with: ${FORM_ENDPOINT:0:30}..."
+          fi
+          
+          # Replace placeholder with actual endpoint from secrets
+          sed -i 's|FORM_ENDPOINT_PLACEHOLDER|${{ secrets.FORM_ENDPOINT }}|g' index.html
+          
+          # Verify the replacement worked
+          echo "After replacement, action attribute:"
+          grep -n "action=" index.html || echo "No action attribute found"
+          
+          # Double-check the placeholder is gone
+          echo "Checking if placeholder still exists:"
+          grep -n "FORM_ENDPOINT_PLACEHOLDER" index.html && echo "ERROR: Placeholder still exists!" || echo "SUCCESS: Placeholder replaced"
+        env:
+          FORM_ENDPOINT: ${{ secrets.FORM_ENDPOINT }}
+          
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          
+      - name: Clean up (optional)
+        run: |
+          echo "Deployment completed successfully"
