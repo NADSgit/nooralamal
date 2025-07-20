@@ -229,12 +229,9 @@
           }
         });
 
-        // add form-specific values into the data
-        formData.formDataNameOrder = JSON.stringify(fields);
+        // add form-specific values into the data - SIMPLIFIED
         formData.formGoogleSheetName = form.dataset.sheet || "responses"; // default sheet name
-        formData.formSubject = "رسالة جديدة من موقع نور الأمل للبيانات"; // Arabic subject line
-        formData.formEmailTemplate = "notification"; // template type
-
+        
         return {data: formData, honeypot: honeypot};
       }
 
