@@ -171,27 +171,6 @@
             </div>
         </div>
     </section>
-   <!--<section id="contact-form-section" class="my-5">
-      <div class="container">
-      <div class="row justify-content-center">
-      
-      <div class="col-md-4">
-
-        <div class="card shadow p-3">
-           <h2 class="text-end pe-3 display-4">تواصل معنا</h2>
-      <iframe 
-        id="contactFormFrame"
-        src="https://script.google.com/macros/s/AKfycbxcMeYnu2C_SjmSKFoK7WVrMwdKUOU7iw74CPj2BtZ8H_b27xLG0MdJNhHgaQv3HQ5O/exec"
-        width="100%" 
-        height="900"
-        frameborder="0" 
-        style="border:0; overflow:hidden;">
-      </iframe>
-        </div>
-      </div>
-      </div>
-      </div>
-    </section> -->
     <section id="contact" class="my-2">
       <div class="container">
         <div class="row justify-content-center">
@@ -221,10 +200,9 @@
                 
               <!-- Email link as a button -->
               <a  id="emailButton"
-                  href="mailto:nooralamal.ds@gmail.com?subject=NADS رسالة%20من%20الموقع" 
                  class="btn btn-lg w-100"
                   style="background-color: purple; color: white; border:none; border-radius: 0.5rem; display: none;">
-                أرسل لنا رسالة  nooralamal.ds@gmail.com
+                أرسل لنا رسالة  
               </a>
 
             </div>
@@ -234,6 +212,13 @@
     </section>
 
     <script>
+    const user = "nooralamal.ds"
+    const domain = "gmail.com"
+    const subject_text = "NADS رسالة%20من%20الموقع"
+    
+    function buildMailto(){
+        return "mailto:" + user + "@" + domain + "?subject=" + subject_text
+    }
     // Set form load timestamp
     document.getElementById("formStart").value = Date.now();
 
@@ -257,8 +242,12 @@
         return;
     }
 
-    // Human → show email button
-    btn.style.display = this.checked ? "block" : "none";
+    if (this.checked) {
+        btn.href = buildMailto();
+        btn.style.display = "block";
+    } else {
+        btn.style.display= "none";
+    }
 });
 </script>
 
