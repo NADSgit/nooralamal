@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nadsgit.github.io/nooralamal/sitemap.xml
