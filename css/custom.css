@@ -1,0 +1,18 @@
+/* custom.css */
+
+/* Custom list styles for RTL icons */
+.custom-list {
+  list-style: none;       /* Remove default bullets */
+  padding-right: 0;       /* Remove default padding */
+}
+
+.custom-list li {
+  display: flex;
+  flex-direction: row-reverse; /* Put icon on the right */
+  align-items: center;
+  margin-bottom: 10px;         /* Space between items */
+}
+
+.custom-list li::marker {
+  display: none;          /* Ensure no marker appears */
+}
