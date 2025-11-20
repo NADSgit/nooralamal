@@ -1,18 +1,21 @@
-/* custom.css */
-
-/* Custom list styles for RTL icons */
 .custom-list {
-  list-style: none;       /* Remove default bullets */
-  padding-right: 0;       /* Remove default padding */
+  list-style: none;
+  padding-right: 0;
 }
 
 .custom-list li {
   display: flex;
-  flex-direction: row-reverse; /* Put icon on the right */
-  align-items: center;
-  margin-bottom: 10px;         /* Space between items */
+  flex-direction: row-reverse; /* icon on the right */
+  align-items: flex-start;     /* align icon with title text */
+  margin-bottom: 10px;
 }
 
-.custom-list li::marker {
-  display: none;          /* Ensure no marker appears */
+.custom-list li strong {
+  white-space: nowrap; /* keep strong text on one line */
+  margin-left: 0.5rem; /* spacing between icon and text */
+}
+
+.custom-list li::before {
+  /* optional: if you want to ensure spacing for icon/emojis */
+  margin-left: 0.5rem;
 }
