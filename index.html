@@ -202,10 +202,28 @@
               <!-- Heading -->
               <h2 class="text-end pe-3 display-4 mb-3">تواصل معنا</h2>
 
+              <!-- Honeypot (hidden) -->
+              <input type="text" id="hp_field" name="hp_field"
+                 autocomplete="off"
+                 style="position:absolute; left:-9999px; top:-9999px;">
+
+              <!-- Timestamp (hidden) -->
+              <input type="hidden" id="formStart">
+
+              <!-- Checkbox -->
+              <div class="form-check text-end mt-3 mb-3">
+                <input class="form-check-input" type="checkbox" id="notRobotCheck" style="float:right;">
+                <label class="form-check-label me-4" for="notRobotCheck">
+                  لستُ روبوتاً
+                </label>
+              </div>
+
+                
               <!-- Email link as a button -->
-              <a href="mailto:nooralamal.ds@gmail.com?subject=NADS رسالة%20من%20الموقع" 
+              <a  id="emailButton"
+                  href="mailto:nooralamal.ds@gmail.com?subject=NADS رسالة%20من%20الموقع" 
                  class="btn btn-lg w-100"
-                  style="background-color: purple; color: white; border:none; border-radius: 0.5rem;">
+                  style="background-color: purple; color: white; border:none; border-radius: 0.5rem; display: none;">
                 أرسل لنا رسالة  nooralamal.ds@gmail.com
               </a>
 
@@ -216,15 +234,35 @@
     </section>
 
     <script>
-        // Adjust iframe height dynamically
-        window.addEventListener('message', function(e) {
-            const iframe = document.getElementById('contactFormFrame');
-        if (iframe && !isNaN(e.data)) {
-            iframe.style.height = e.data + 'px';
-        }
-        });
-    </script>
-</body>
+    // Set form load timestamp
+    document.getElementById("formStart").value = Date.now();
+
+    // When checkbox changes
+    document.getElementById("notRobotCheck").addEventListener("change", function () {
+    const btn = document.getElementById("emailButton");
+    const hp = document.getElementById("hp_field").value;
+    const start = parseInt(document.getElementById("formStart").value);
+    const now = Date.now();
+    const elapsed = now - start;
+
+    // Block bots filling honeypot
+    if (hp !== "") {
+        console.warn("Bot detected (honeypot). Email button disabled.");
+        return;
+    }
+
+    // Block bots submitting instantly (< 2 seconds)
+    if (elapsed < 2000) {
+        console.warn("Bot detected (too fast). Email button disabled.");
+        return;
+    }
+
+    // Human → show email button
+    btn.style.display = this.checked ? "block" : "none";
+});
+</script>
+
+</body>   
 </html>
 <!--https://github.com/dwyl/learn-to-send-email-via-google-script-html-no-server?tab=readme-ov-file -->
 <!-- if I want to touch up anything -->
