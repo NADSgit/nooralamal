@@ -19,4 +19,5 @@
 
 .desc {
   clear: both;           /* ensures description starts below the icon/title */
+  unicode-bidi: embed;  /* fixes punctuation placement in RTL */
 }
