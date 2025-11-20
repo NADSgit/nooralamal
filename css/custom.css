@@ -5,22 +5,18 @@
 }
 
 .custom-list li {
-  display: flex;
-  flex-direction: column; /* stack icon+title and description */
-  align-items: flex-end;  /* right align everything */
   margin-bottom: 15px;
+  direction: rtl;        /* ensures RTL text flow */
+  text-align: right;
 }
 
 .icon-title {
-  white-space: nowrap; /* keep icon + strong on one line */
+  white-space: nowrap;   /* keep icon + title on one line */
+  float: right;          /* stick to the right side */
   font-weight: bold;
-  display: flex;
-  flex-direction: row-reverse; /* icon on right, title next to it */
-  align-items: center;
-  gap: 0.5rem;
+  margin-bottom: 4px;    /* space between title and description */
 }
 
 .desc {
-  text-align: right;   /* description text aligns right */
-  margin-top: 4px;
+  clear: both;           /* ensures description starts below the icon/title */
 }
