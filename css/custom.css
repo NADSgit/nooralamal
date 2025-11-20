@@ -1,21 +1,26 @@
 .custom-list {
   list-style: none;
   padding-right: 0;
+  margin: 0;
 }
 
 .custom-list li {
   display: flex;
-  flex-direction: row-reverse; /* icon on the right */
-  align-items: flex-start;     /* align icon with title text */
-  margin-bottom: 10px;
+  flex-direction: column; /* stack icon+title and description */
+  align-items: flex-end;  /* right align everything */
+  margin-bottom: 15px;
 }
 
-.custom-list li strong {
-  white-space: nowrap; /* keep strong text on one line */
-  margin-left: 0.5rem; /* spacing between icon and text */
+.icon-title {
+  white-space: nowrap; /* keep icon + strong on one line */
+  font-weight: bold;
+  display: flex;
+  flex-direction: row-reverse; /* icon on right, title next to it */
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.custom-list li::before {
-  /* optional: if you want to ensure spacing for icon/emojis */
-  margin-left: 0.5rem;
+.desc {
+  text-align: right;   /* description text aligns right */
+  margin-top: 4px;
 }
