@@ -52,7 +52,7 @@
                 <div class="col-lg-8 lead">
                     <div style="direction: rtl; text-align: right;">
                        <h2>حول <span style="color: purple;">نور الأمل لبيانات</span></h2>
-
+                </div>
                 <p>
 مرحبًا بك في <span style="color: purple;">نور الأمل لبيانات</span> — حيث تتحول البيانات إلى ضوء يرشد العمل الهادف ويعزز التغيير الحقيقي. نحن أكثر من مجرد خبراء في التحليلات؛ نحن شركاء ملتزمون في رحلتك نحو التأثير والأمل.
                 </p>
@@ -125,83 +125,26 @@
             </div>
         </div>
     </section>
-    <section id="contact">
-         <h2>نموذج التواصل</h2>
-        <form id="contactForm">
-  
-          <div class="form-elements">
-
-            <label>الاسم:</label><br>
-                <input type="text" name="name" required><br><br>
-
-            <label>البريد الإلكتروني:</label><br>
-                <input type="email" name="email" required><br><br>
-
-            <label>الرسالة:</label><br>
-                <textarea name="message" rows="5" required></textarea><br><br>
-
-            <!-- Human Verification -->
-            <label style="display:flex;align-items:center;gap:8px;">
-                  <input type="checkbox" id="human-verification">
-              لست روبوت
-            </label>
-
-            <div id="errorMessage">يرجى التحقق من أنك لست روبوتًا.</div>
-
-            <br>
-            <button type="submit">إرسال</button>
-
-            </div>
-
-            <div class="thankyou_message">
-                <h3>شكراً! تم إرسال رسالتك بنجاح.</h3>
-            </div>
-
-        </form>
+   <section id="contact-form-section">
+      <h2>تواصل معنا</h2>
+      <iframe 
+        id="contactFormFrame"
+        src="https://script.google.com/macros/s/AKfycbyQdn7ZvvABtM86BWNAVjA2TTyg7Lx06cRnBu9EmxLoxap_V5VvQk3JBWPL4BZejxQ/exec"
+        width="100%" 
+        frameborder="0" 
+        style="border:0; overflow:hidden;">
+      </iframe>
     </section>
+
     <script>
-    document.getElementById("contactForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const human = document.getElementById("human-verification");
-      const errorMessage = document.getElementById("errorMessage");
-
-      // Check human verification
-      if (!human.checked) {
-        errorMessage.style.display = "block";
-        errorMessage.scrollIntoView({ behavior: "smooth", block: "center" });
-
-        setTimeout(() => { errorMessage.style.display = "none"; }, 5000);
-        return;
-      }
-
-      // Build form data
-      const formData = {
-        name: this.name.value,
-        email: this.email.value,
-        message: this.message.value
-      };
-
-      // Submit to Apps Script
-      google.script.run.withSuccessHandler(() => {
-      // Hide form fields
-      document.querySelector(".form-elements").style.display = "none";
-
-      // Show thank you message
-      document.querySelector(".thankyou_message").style.display = "block";
-
-      // Reset form
-      document.getElementById("contactForm").reset();
-      }).handleFormSubmit(formData);
-    });
-
-    // Hide error message when checkbox is checked
-    document.getElementById("human-verification").addEventListener("change", function () {
-      if (this.checked) {
-        document.getElementById("errorMessage").style.display = "none";
-      }
-    });
-</script>
+        // Adjust iframe height dynamically
+        window.addEventListener('message', function(e) {
+            const iframe = document.getElementById('contactFormFrame');
+        if (iframe && !isNaN(e.data)) {
+            iframe.style.height = e.data + 'px';
+        }
+        });
+    </script>
 </body>
 </html>
 <!--https://github.com/dwyl/learn-to-send-email-via-google-script-html-no-server?tab=readme-ov-file -->
